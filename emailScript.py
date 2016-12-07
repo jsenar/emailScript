@@ -28,12 +28,15 @@ def main():
 	elem.send_keys(Keys.RETURN)	
 
 	time.sleep(1)	
-
+	
+	#initial call
+	driver.get("https://acs-webmail.ucsd.edu/squirrelmail/src/right_main.php?use_mailbox_cache=0&startMessage={0}&mailbox=INBOX".format(start_email))
+	
 	while "ERROR" not in driver.page_source:
-		driver.get("https://acs-webmail.ucsd.edu/squirrelmail/src/right_main.php?use_mailbox_cache=0&startMessage={0}&mailbox=INBOX".format(start_email))
 		driver.find_element_by_link_text("Toggle All").click()
 		driver.find_element_by_name("markRead").click()
 		start_email = start_email + num_emails
+		driver.get("https://acs-webmail.ucsd.edu/squirrelmail/src/right_main.php?use_mailbox_cache=0&startMessage={0}&mailbox=INBOX".format(start_email))
 	'''list = driver.find_elements_by_tag_name('a')
 	print list
 	for link in list:
